@@ -1,0 +1,25 @@
+language: go
+
+go:
+  - "1.10.x"
+  - master
+
+stages:
+  - lint
+  - build
+
+jobs:
+  include:
+    - stage: lint
+      script:
+        - go get github.com/golang/lint/golint
+        - golint
+        - go vet
+    - stage: build
+      script:
+        - go build -o goddi
+
+matrix:
+  allow_failures:
+    - go: master
+  fast_finish: true
