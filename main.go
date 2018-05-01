@@ -17,7 +17,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/NetSPI/goddi/ddi"
+	goddi "github.com/pityonline/ddi/goddi"
 )
 
 func main() {
