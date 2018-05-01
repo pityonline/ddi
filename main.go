@@ -14,11 +14,18 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"strings"
 	"time"
 
 	goddi "github.com/pityonline/ddi/ddi"
 )
+
+// printVersion prints version
+func printVersion() {
+	fmt.Println("v1.0.0")
+	os.Exit(0)
+}
 
 func main() {
 
@@ -28,11 +35,16 @@ func main() {
 	pass := flag.String("password", "", "password to connect with ex. -password=\"testpass!\"")
 	startTLS := flag.Bool("startTLS", false, "Use for StartTLS on 389. Default is TLS on 636")
 	unsafe := flag.Bool("unsafe", false, "Use for testing and plaintext connection")
+	version := flag.Bool("version", false, "print version")
 	flag.Parse()
 
-	if len(*ldapServer) == 0 || len(*domain) == 0 || len(*user) == 0 || len(*pass) == 0 {
-		flag.PrintDefaults()
-		log.Fatal("[ERROR] Provide username, password, DC, and domain!\n")
+	if *version == true {
+		printVersion()
+	} else {
+		if len(*ldapServer) == 0 || len(*domain) == 0 || len(*user) == 0 || len(*pass) == 0 {
+			flag.PrintDefaults()
+			log.Fatal("[ERROR] Provide username, password, DC, and domain!\n")
+		}
 	}
 
 	var ldapIP string
