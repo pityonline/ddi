@@ -18,6 +18,9 @@ jobs:
     - stage: build
       script:
         - go build -o goddi
+      after_success:
+        - chmod +x goddi
+        - ./goddi
 
 matrix:
   allow_failures:
