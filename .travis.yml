@@ -21,15 +21,16 @@ jobs:
         - go vet
     - stage: build
       script:
-        - go build -o goddi
+        - if [ $TRAVIS_OS_NAME == linux ]; then go build -o goddi; fi
+        - if [ $TRAVIS_OS_NAME == osx ]; then go build -o goddi; fi
       after_success:
         - chmod +x goddi
         - ./goddi
 
 matrix:
-  os:
-    - osx
-    - linux
+  include:
+    - os: osx
+    - os: linux
   allow_failures:
     - go: master
   fast_finish: true
